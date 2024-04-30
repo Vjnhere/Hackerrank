@@ -1,0 +1,30 @@
+Sherlock
+N = int(input())
+A = [int(c) for c in input().split()[:N]]
+P, Q = [int(c) for c in input().split()[:2]]
+
+a = sorted(A)
+max_point = P
+max_distance = min(abs(i - P) for i in a)
+for i in range(len(a) - 1):
+    if a[i] > Q or a[i+1] < P:
+        continue
+    m = int((a[i] + a[i+1]) / 2)
+    if m < P:
+        point = P
+        distance = a[i+1] - P
+    elif m > Q:
+        point = Q
+        distance = Q - a[i]
+    else: #m >= P and m <= Q:
+        point = m
+        distance = m - a[i]
+    if distance > max_distance:
+        max_point = point
+        max_distance = distance
+point = Q
+distance = min(abs(i - Q) for i in a)
+if distance > max_distance:
+    max_point = point
+    max_distance = distance
+print(max_point)
